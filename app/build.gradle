@@ -1,0 +1,42 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'com.custom.hy300launcher'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.custom.hy300launcher"
+        minSdk 26
+        targetSdk 33
+        versionCode 5
+        versionName "5.0"
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+        }
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+}
+
+dependencies {
+    // Используем только легковесный системный Android SDK без раздувания APK
+    // Это критично для 1 ГБ ОЗУ на проекторе Magcubic HY300 (Allwinner H713)
+}
