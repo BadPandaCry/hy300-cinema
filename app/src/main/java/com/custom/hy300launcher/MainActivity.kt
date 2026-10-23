@@ -722,10 +722,39 @@ class MainActivity : Activity() {
     private fun createPillButton(viewId: Int, title: String, onClick: () -> Unit): TextView {
         return TextView(this).apply {
             id = viewId
-            text = title; setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f); typeface = Typeface.DEFAULT_BOLD; setTextColor(Color.parseColor("#E2E8F0"))
-            setPadding(dp(14), dp(10), dp(14), dp(10)); isFocusable = true; isClickable = true; background = createGlassDrawable(false)
+            text = title
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
+            typeface = Typeface.DEFAULT_BOLD
+            setTextColor(Color.parseColor("#E2E8F0"))
+            setPadding(dp(14), dp(10), dp(14), dp(10))
+            isFocusable = true
+            isClickable = true
+            background = createGlassDrawable(false)
             layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { leftMargin = dp(8) }
             setOnFocusChangeListener { v, hasFocus ->
                 v.background = createGlassDrawable(hasFocus)
                 setTextColor(if (hasFocus) Color.WHITE else Color.parseColor("#E2E8F0"))
-                v.animate
+                v.animate().scaleX(if (hasFocus) 1.05f else 1.0f).scaleY(if (hasFocus) 1.05f else 1.0f).setDuration(110).start()
+            }
+            setOnClickListener { onClick() }
+        }
+    }
+
+    private fun createGlassDrawable(focused: Boolean): GradientDrawable {
+        return GradientDrawable().apply {
+            shape = GradientDrawable.RECTANGLE
+            cornerRadius = dp(30).toFloat()
+            setColor(Color.parseColor(if (focused) "#1E293B" else "#131824"))
+            setStroke(if (focused) dp(2) else dp(1), Color.parseColor(if (focused) "#38BDF8" else "#222B3B"))
+        }
+    }
+
+    private fun createAppTileDrawable(focused: Boolean): GradientDrawable {
+        return GradientDrawable().apply {
+            shape = GradientDrawable.RECTANGLE
+            cornerRadius = dp(16).toFloat()
+            setColor(Color.parseColor(if (focused) "#1E293B" else "#111520"))
+            setStroke(if (focused) dp(2) else dp(1), Color.parseColor(if (focused) "#38BDF8" else "#1E2536"))
+        }
+    }
+}
