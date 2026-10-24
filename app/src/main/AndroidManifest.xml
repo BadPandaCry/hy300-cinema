@@ -32,16 +32,16 @@
         </activity>
 
         <service
-            android:name=".RemoteAccessibilityService"
-            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
-            android:label="HY300 Пульт и Ввод текста"
-            android:exported="false">
+            android:name=".RemoteKeyboardService"
+            android:label="HY300 Wi-Fi Клавиатура"
+            android:permission="android.permission.BIND_INPUT_METHOD"
+            android:exported="true">
             <intent-filter>
-                <action android:name="android.accessibilityservice.AccessibilityService" />
+                <action android:name="android.view.InputMethod" />
             </intent-filter>
             <meta-data
-                android:name="android.accessibilityservice"
-                android:resource="@xml/accessibility_service_config" />
+                android:name="android.view.im"
+                android:resource="@xml/method" />
         </service>
 
     </application>
